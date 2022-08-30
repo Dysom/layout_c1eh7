@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/test.min.css"/>    
+    <title>Document-X</title>
+</head>
+<body>
+    <div class="info"></div>
+    <div class="test"></div>
+    <script>
+        let point_1 = {x: 654, y: 776};
+        let point_2 = {x: 729, y: 543};
+        let point_c = {x: 960, y: 541};
+
+        let w_o = 1009;
+        let h_o = 305;
+
+        let wx = Math.abs(point_1.x - point_2.x);
+        let hy = Math.abs(point_1.y - point_2.y);
+        let g = Math.sqrt(wx * wx + hy * hy);
+
+        let sin_alpha = wx / g;
+        let cos_alpha = hy / g;
+        let tg_alpha = wx / hy;
+
+        let h_n = h_o * cos_alpha + w_o * sin_alpha;
+
+        // let delta = Math.abs(point_c.x - point_1.x) + Math.abs(point_c.y - point_1.y) * sin_alpha;
+        let delta = (Math.abs(point_c.x - point_1.x) - Math.abs(point_c.y - point_1.y) * tg_alpha) * cos_alpha;
+
+        let delta_x = delta * cos_alpha; 
+        let delta_y = delta * sin_alpha; 
+
+        point_1.x += delta_x;
+        point_1.y += delta_y;
+
+        point_2.x += delta_x;
+        point_2.y += delta_y;
+
+        let h_n_y = h_n * cos_alpha;
+
+        let y_p1 = 100 * Math.abs(point_1.y - point_c.y) / h_n_y;
+        let y_p2 = 100 * Math.abs(point_2.y - point_c.y) / h_n_y;
+
+        let info = "";
+
+        info += "wx: " + wx;
+        info += "<br />";
+        info += "hy: " + hy;
+        info += "<br />";
+        info += "g: " + g;
+        info += "<br />";
+
+        let alpha = Math.asin(sin_alpha);
+        info += "alpha: " + alpha;
+        info += "<br />";
+        info += "<br />";
+
+        info += "sin_alpha: " + sin_alpha;
+        info += "<br />";
+        info += "cos_alpha: " +cos_alpha;
+        info += "<br />";
+        info += "tg_alpha: " + tg_alpha;
+        info += "<br />";
+        info += "delta: " + delta;
+        info += "<br />";
+        info += "delta_x: " + delta_x;
+        info += "<br />";
+        info += "delta_y: " + delta_y;
+        info += "<br />";
+
+        info += "point_c: {" + point_c.x + ", " + point_c.y + "}";
+        info += "<br />";
+        info += "point_1: {" + point_1.x + ", " + point_1.y + "}";
+        info += "<br />";
+        info += "point_2: {" + point_2.x + ", " + point_2.y + "}";
+        info += "<br />";
+
+        info += "h_n_y: " + h_n_y;
+        info += "<br />";
+        info += "y_p1: " + y_p1;
+        info += "<br />";
+        info += "y_p2: " + y_p2;
+        info += "<br />";
+
+        document.querySelector(".info").innerHTML = info;
+    </script>
+</body>
+</html>

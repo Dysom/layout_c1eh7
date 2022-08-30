@@ -1,0 +1,74 @@
+@use "global-vars" as *;
+@use "funcs" as *;
+
+$medias-for-section: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 700px,        
+        coeff: .5
+    )
+);
+
+.section {  
+    $props: (        
+        padding: 130px 160px 60px
+    );
+    font-family: 'Montserrat';
+    text-align: center;
+
+    @include set_props_by_medias($props, $medias-for-section);
+}
+
+$medias-for-header-text: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 640px,        
+        coeff: 1.5
+    )
+);
+
+$medias-for-header-indent: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 640px,        
+        coeff: 1
+    )
+);
+
+.section__overheader {
+    $font-props: (
+        font-size: 16px
+    );
+        
+    $props: (
+        margin-bottom: 27px
+    );
+
+    font-weight: 600;
+    line-height: 1.25em;
+    letter-spacing: 0.7em;
+    color: #474747;
+
+    @include set_props_by_medias($font-props, $medias-for-header-text);
+    @include set_props_by_medias($props, $medias-for-header-indent);
+}
+
+.section__header {
+    $font-props: (
+        font-size: 46px
+    );
+    
+    $props: (
+        margin-bottom: 40px
+    );
+
+    font-weight: 700;
+    line-height: 1.217em;
+    color: #2D2D2D;
+
+    @include set_props_by_medias($font-props, $medias-for-header-text);
+    @include set_props_by_medias($props, $medias-for-header-indent);
+}

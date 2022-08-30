@@ -1,0 +1,73 @@
+@use "global-vars" as *;
+@use "sass:map";
+@use "sass:string";
+
+@function get_responsive_value($val) {
+    @return calc($val / $common-responsive-max-width) * 100vw;
+}
+
+@function get_responsive($val, $responsive-max-width) {
+    @if $responsive-max-width {
+        @return calc($val / $responsive-max-width) * 100vw;
+    }
+
+    @return 0;
+}
+
+@mixin set_props($props-box) {
+    @each $prop-key, $prop-val in $props-box {
+        #{$prop-key}: $prop-val;
+    }
+}
+
+@mixin set_props_by_media($props-box, $setts) {
+
+    @if $setts and map-has-key($setts, media-condition) {
+        $media-value: map-get($setts, media-value) or 0;
+
+        $coeff: map-get($setts, coeff) or 1;
+
+        @media (#{map-get($setts, media-condition)}: (map-get($setts, media-break-value) or $media-value)) {
+            @each $prop-key, $prop-val in $props-box {
+                $temp: '';
+            
+                @each $sub-val in $prop-val {
+                    @if $temp != '' {
+                        $temp: $temp + ' ';
+                    }
+
+                    @if $sub-val != 0 {
+                        // @debug $coeff;
+                        $sub-val: get_responsive($sub-val, $media-value);                        
+                        // @debug $sub-val;
+                        $sub-val: $sub-val * $coeff;
+                        // @debug $sub-val;
+                    }
+    
+                    $temp: $temp + $sub-val;
+                }
+    
+                #{$prop-key}: string.unquote($temp);
+            }
+        }
+
+    }
+    @else {
+        @warn "responsive_props: no media-condition";
+    }
+}
+
+@mixin set_props_by_medias($props-box, $list-setts) {
+    @if length($list-setts) == 0 {
+        @include set_props($props-box);
+    }
+
+    @each $setts in $list-setts {
+        @if $setts and length($setts) > 0 {
+            @include set_props_by_media($props-box, $setts);
+        }
+        @else {            
+            @include set_props($props-box);
+        }
+    }
+}

@@ -1,0 +1,21 @@
+$debug: 0;
+
+@use "fonts";
+@use "common";
+@use "main-wrapper";
+@use "main-block";
+@use "section";
+@use "activities";
+@use "philosophy";
+@use "hotels";
+@use "partners";
+@use "header";
+@use "footer";
+
+@if $debug == 1 {
+    .main-wrapper > *:not(section)
+    , .main-wrapper > section:not(:nth-of-type(10004))
+    {
+        display: none;
+    }
+}

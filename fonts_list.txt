@@ -1,0 +1,9 @@
+Manrope Regular	400
+Manrope ExtraBold	800
+Manrope Bold	700
+Montserrat SemiBold	600
+Montserrat Bold	700
+Montserrat Medium	500
+Montserrat Regular	400
+Roboto Light 300
+Roboto Black	900

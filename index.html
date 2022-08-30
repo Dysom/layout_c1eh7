@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style.min.css"/>
+    <title>Document</title>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('._noscript').forEach(el => el.classList.remove('_noscript'));
+
+            const activites = document.querySelector('#activities');
+            const activities__ribbon = document.querySelector('#activities__ribbon');
+            const activities__windowwrapper = document.querySelector('#activities__window-wrapper');
+
+            const set_activities_window_width = () => {
+                const card_width = Math.round((376 / 620) * activities__ribbon.clientHeight);
+                const space_width = activites.clientWidth;
+
+                let styleWidth = space_width - space_width % card_width;
+
+                styleWidth = Math.max(card_width, styleWidth);
+
+                activities__windowwrapper.style.maxWidth = styleWidth + 'px';
+            };
+
+            set_activities_window_width();
+
+            window.addEventListener('resize', () => {
+                set_activities_window_width();
+            });
+
+            document.querySelectorAll('.activities .activities__move-arrow').forEach(
+                (elem) => {
+                    elem.addEventListener('click', (evt) => {
+                    evt.preventDefault();
+                    const isBack = elem.classList.contains('activities__move-arrow_back');
+                    const cards_wrappers = activities__ribbon.querySelectorAll('.activities__card-wrapper');
+                    const card_wrapper = isBack ? cards_wrappers.item(0) : cards_wrappers.item(cards_wrappers.length - 1);
+                    card_wrapper.classList.add('_collapsed');
+
+                    if('ontransitionend' in card_wrapper) {
+                        card_wrapper.addEventListener('transitionend', () => {
+                            const wrapper = card_wrapper.parentElement;
+                            wrapper.removeChild(card_wrapper);
+                            if(isBack) {
+                                wrapper.appendChild(card_wrapper);
+                            }
+                            else {
+                                wrapper.insertBefore(card_wrapper, wrapper.firstChild);
+                            }
+                            setTimeout(() => {
+                                card_wrapper.classList.remove('_collapsed');
+                            });
+                        }, {once: true})
+                    }
+                    else {
+                        const wrapper = card_wrapper.parentElement;
+
+                        wrapper.removeChild(card_wrapper);
+                        
+                        if(isBack) {
+                            wrapper.appendChild(card_wrapper);
+                        }
+                        else {
+                            wrapper.insertBefore(card_wrapper, wrapper.firstChild);
+                        }
+                        
+                        card_wrapper.classList.remove('_collapsed');
+                    }
+                })
+            });
+
+            
+
+            document.querySelector('#header_seemore').addEventListener('click', (e) => {
+                e.preventDefault();
+
+                document.querySelector('#section_activities').scrollIntoView({behavior: "smooth"});
+            });
+
+            try {
+                document.querySelectorAll('#footer-travel-link, #footer-travel-link2').forEach(elem => {
+                    elem.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        document.querySelector('#main-wrapper').scrollIntoView({behavior: "smooth"});
+                    })}
+                );
+            }
+            catch {}
+
+        });
+    </script>
+</head>
+<body>
+    <div class="main-wrapper" id="main-wrapper">
+        <div class="main-block">
+            <header class="header">
+                <div class="header__logo">
+                    TRAVELx
+                </div>
+                <nav class="header__nav">
+                    <a href="#" class="header__link">Destinations</a>
+                    <a href="#" class="header__link">Activities</a>
+                    <a href="#" class="header__link">About Us</a>
+                    <a href="#" class="header__link">Contact</a>
+                </nav>
+                <aside class="header__socials">
+                    <a href="#" class="header__soc-link" title="Facebook">
+                        <img src="img/socials-icons/facebook.svg" alt="Facebook" class="header__soc-img"/>
+                    </a>
+                    <a href="#" class="header__soc-link" title="Twitter">
+                        <img src="img/socials-icons/twitter.svg" alt="Twitter" class="header__soc-img"/>
+                    </a>
+                    <a href="#" class="header__soc-link" title="Instagram">
+                        <img src="img/socials-icons/instagram.svg" alt="Instagram" class="header__soc-img"/>
+                    </a>
+                </aside>
+                <a href="#" id="header_seemore" class="header__seemore"><span>See more</span></a>
+                <div class="slider">
+                    <div class="slider__track">
+                    <div class="slider__selected"></div>
+                        <div class="slider__track-chevron"></div>
+                    </div>
+                    <div class="slider__info">
+                        <span class="slider__bigtext">01</span>
+                        <span class="slider__text"> / 04</span>
+                        <div class="slider__info-chevron"></div>
+                    </div>
+                </div>
+            </header>
+            <div class="main-block__over-title">Explore</div>
+            <h1 class="main-block__title">Norway</h1>
+            <div class="geo">
+                <div class="geo__box-wrapper">
+                    <a href="#" class="geo__box">
+                        <div class="geo__cover"></div>
+                        <div class="geo__map-marker"></div>
+                        <div class="geo__text">
+                            <h4 class="geo__name">Trondheim</h4>
+                            <div class="geo__desc">Plan a trip</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="geo__box-wrapper">
+                    <a href="#" class="geo__box">
+                        <div class="geo__cover"></div>
+                        <div class="geo__map-marker"></div>
+                        <div class="geo__text">
+                            <h4 class="geo__name">Geirangerfjord</h4>
+                            <div class="geo__desc">Plan a trip</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="geo__box-wrapper">
+                    <a href="#" class="geo__box">
+                        <div class="geo__cover"></div>
+                        <div class="geo__map-marker"></div>
+                        <div class="geo__text">
+                            <h4 class="geo__name">Lofoten</h4>
+                            <div class="geo__desc">Plan a trip</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <section class="section" id="section_activities">
+            <div class="section__overheader">hundreds of</div>
+            <h3 class="section__header">
+                Activities for Everyone
+            </h3>
+            <div class="activities" id="activities">
+                <div class="activities__window-wrapper" id="activities__window-wrapper">
+                    <a href="#" class="activities__move-arrow _noscript activities__move-arrow_back">
+                        back
+                    </a>
+                    <a href="#" class="activities__move-arrow _noscript activities__move-arrow_forward">
+                        next
+                    </a>
+                    <div class="activities__window _noscript">
+                        <div class="activities__ribbon" id="activities__ribbon">
+                            <div class="activities__card-wrapper">
+                                <a href="#" class="activities__card act-card">
+                                    <div class="act-card__content">
+                                        <div class="act-card__title">Hiking</div>
+                                        <div class="act-card__text">230 activites</div>
+                                    </div>
+                                    <img src="img/activities/01.jpg" alt="" class="activities__img"/>
+                                </a>
+                            </div>
+                            <div class="activities__card-wrapper">
+                                <a href="#" class="activities__card act-card">
+                                    <div class="act-card__content">
+                                        <div class="act-card__title">Sailing</div>
+                                        <div class="act-card__text">121 activites</div>
+                                    </div>
+                                    <img src="img/activities/02.jpg" alt="" class="activities__img"/>
+                                </a>
+                            </div>
+                            <div class="activities__card-wrapper">
+                                <a href="#" class="activities__card act-card">
+                                    <div class="act-card__content">
+                                        <div class="act-card__title">Skiing</div>
+                                        <div class="act-card__text">212 activites</div>
+                                    </div>
+                                    <img src="img/activities/03.jpg" alt="" class="activities__img"/>
+                                </a>
+                            </div>
+                            <div class="activities__card-wrapper">
+                                <a href="#" class="activities__card act-card">
+                                    <div class="act-card__content">
+                                        <div class="act-card__title">Kayaking</div>
+                                        <div class="act-card__text">512 activites</div>
+                                    </div>
+                                    <img src="img/activities/04.jpg" alt="" class="activities__img"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section__overheader">About Us</div>
+            <h3 class="section__header">
+                Our Philosophy
+            </h3>
+            <div class="philosophy">
+                <img src="img/philosophy/01.jpg" alt="philosophy" class="philosophy__img"/>
+                <div class="philosophy__content">
+                    <article class="philosophy__article">
+                        <h4 class="philosophy__header">Sustainable</h4>
+                        <div class="philosophy__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam nulla risus,</div>
+                    </article>
+                    <article class="philosophy__article">
+                        <h4 class="philosophy__header">Fair & Share</h4>
+                        <div class="philosophy__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam,</div>
+                    </article>
+                    <article class="philosophy__article">
+                        <h4 class="philosophy__header">Experience</h4>
+                        <div class="philosophy__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section section_hotels">
+            <div class="section__overheader">BEAUTIES</div>
+            <h3 class="section__header">
+                Hotels and Appartements
+            </h3>
+            <div class="hotels">
+                <div class="hotels__cards-box">
+                    <a href="#" class="hotel-card">
+                        <img src="img/hotels/01.jpg" alt="" class="hotel-card__img"/>
+                        <div class="hotel-card__desc">
+                            <div class="hotel-card__name">Reine</div>
+                            <div class="hotel-card__rate">
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                            </div>
+                            <div class="hotel-card__price">$720</div>
+                        </div>
+                    </a>
+                    <a href="#" class="hotel-card">
+                        <img src="img/hotels/02.jpg" alt="" class="hotel-card__img"/>
+                        <div class="hotel-card__desc">
+                            <div class="hotel-card__name">Norway</div>
+                            <div class="hotel-card__rate">
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star hotel-card__star_grey"></div>
+                            </div>
+                            <div class="hotel-card__price">$350</div>
+                        </div>
+                    </a>
+                    <a href="#" class="hotel-card">
+                        <img src="img/hotels/03.jpg" alt="" class="hotel-card__img"/>
+                        <div class="hotel-card__desc">
+                            <div class="hotel-card__name">Bergen</div>
+                            <div class="hotel-card__rate">
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star"></div>
+                                <div class="hotel-card__star hotel-card__star_yellow-grey"></div>
+                            </div>
+                            <div class="hotel-card__price">$670</div>
+                        </div>
+                    </a>
+                </div>
+                <form class="hotels__search-box">
+                    <div class="hotels__option selection-option">
+                        <label for="opt_01" class="selection-option__name">Date</label>
+                        <select name="" id="opt_01" class="selection-option__select">
+                            <option value="" selected>Tue, 3 Nov</option>
+                        </select>
+                    </div>
+                    <div class="hotels__option selection-option">
+                        <label for="opt_02" class="selection-option__name">Location</label>
+                        <select name="" id="opt_02" class="selection-option__select">
+                            <option value="" selected>Morocco</option>
+                        </select>
+                    </div>
+                    <div class="hotels__option selection-option">
+                        <label for="opt_03" class="selection-option__name">Place</label>
+                        <select name="" id="opt_03" class="selection-option__select">
+                            <option value="" selected>Loften</option>
+                        </select>
+                    </div>
+                    <button class="hotels__button button">SEARCH</button>
+                </form>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section__overheader">NETWORK</div>
+            <h3 class="section__header">
+                Our Partners
+            </h3>
+            <div class="partners">
+                <div class="brands-box">
+                    <div class="brands-box__item">
+                        <img src="img/partners/01.svg" alt="01" class="brands-box__img"/>
+                    </div>
+                    <div class="brands-box__item">
+                        <img src="img/partners/02.svg" alt="02" class="brands-box__img"/>
+                    </div>
+                    <div class="brands-box__item">
+                        <img src="img/partners/03.svg" alt="03" class="brands-box__img"/>
+                    </div>
+                    <div class="brands-box__item">
+                        <img src="img/partners/04.svg" alt="04" class="brands-box__img"/>
+                    </div>
+                </div>
+                <div class="messages-box">
+                    <div class="messages-box__bg"></div>
+                    <div class="messages-box__wrapper">
+                        <div class="messages-box__item">
+                            <div class="messages-box__message-wrapper">
+                                <div class="messages-box__message">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem. consectetur adipiscing elit. nibh lectus feugiat nunc
+                                </div>
+                            </div>
+                            <div class="messages-box__person-wrapper">
+                                <img src="img/partners/01.png" class="messages-box__img" />
+                                <div class="messages-box__person">
+                                    <div class="messages-box__person-name">Jane Cooper</div>
+                                    <div class="messages-box__person-post">CEO, ABC Corporation</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages-box__item">
+                            <div class="messages-box__message-wrapper">
+                                <div class="messages-box__message">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem. consectetur adipiscing elit.
+                                </div>
+                            </div>
+                            <div class="messages-box__person-wrapper">
+                                <img src="img/partners/02.png" class="messages-box__img" />
+                                <div class="messages-box__person">
+                                    <div class="messages-box__person-name">Alan Jackson</div>
+                                    <div class="messages-box__person-post">CEO, Travelers Community</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages-box__item">
+                            <div class="messages-box__message-wrapper">
+                                <div class="messages-box__message">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat. ipsum dolor sit amet, consectetur adipiscing elit.
+                                </div>
+                            </div>
+                            <div class="messages-box__person-wrapper">
+                                <img src="img/partners/03.png" class="messages-box__img" />
+                                <div class="messages-box__person">
+                                    <div class="messages-box__person-name">Jane Cooper</div>
+                                    <div class="messages-box__person-post">CEO, Go Travel</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="footer">
+        <div class="footer__wrapper">
+            <a href="#" id="footer-travel-link" class="footer__logo"><img src="img/footer_logo.svg" alt="TRAVELx" /></a>
+            <div class="footer__title"><a href="#" id="footer-travel-link2">TRAVELx</a></div>
+            <nav class="footer__nav">
+                <a href="#" class="footer__link">Destinations</a>
+                <a href="#" class="footer__link">Activities</a>
+                <a href="#" class="footer__link">About Us</a>
+                <a href="#" class="footer__link">Contact</a>
+                <a href="#" class="footer__link">Privacy Policy</a>
+            </nav>
+            <div class="footer__splitter"></div>
+            <div class="footer__box">
+                <div class="footer__copy">© 2020 Bikart Design. All rights reserved</div>
+                <aside class="footer__socials">
+                    <a href="#" title="Instagram" class="footer__soc-link">
+                        <img src="img/socials-icons/gray/instagram.svg" alt="instagram" class="footer__soc-img" />
+                    </a>
+                    <a href="#" title="Dribbble" class="footer__soc-link">
+                        <img src="img/socials-icons/gray/dribbble.svg" alt="dribbble" class="footer__soc-img" />
+                    </a>
+                    <a href="#" title="Twitter" class="footer__soc-link">
+                        <img src="img/socials-icons/gray/twitter.svg" alt="twitter" class="footer__soc-img" />
+                    </a>
+                    <a href="#" title="Youtube" class="footer__soc-link">
+                        <img src="img/socials-icons/gray/youtube.svg" alt="youtube" class="footer__soc-img" />
+                    </a>
+                </aside>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

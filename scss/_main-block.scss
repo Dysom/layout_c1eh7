@@ -1,0 +1,245 @@
+@use "global-vars" as *;
+@use "funcs" as *;
+
+$geo-responsive-max-width-breakpoint: 1000px;
+$geo-responsive-coeff-breakpoint: 1.7;
+
+$geo-responsive-max-width-breakpoint-2: 700px;
+$geo-responsive-coeff-breakpoint-2: 3;
+
+$medias-for-main-block-media-value: 1400px;
+
+$medias-for-main-block: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value
+    )
+);
+
+.main-block {
+    $props: (    
+        min-height: 1204px,
+        padding-top: 378px,
+        padding-bottom: 80px
+    );
+    background-image: url(../img/main_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center 0;
+    font-family: 'Montserrat';
+    text-align: center;    
+    position: relative;
+
+    @media (max-width: $medias-for-main-block-media-value) {
+        background-size: auto 100%;
+    }
+
+    @include set_props_by_medias($props, $medias-for-main-block);
+}
+
+.main-block__over-title {
+    $props: (
+        font-size: 30px
+    );
+    font-weight: 500;
+    letter-spacing: 0.55em;
+    color: rgba(255, 255, 255, 0.7);
+
+    @include set_props_by_medias($props, $medias-for-main-block);    
+}
+
+.main-block__title {
+    $props: (
+        margin-bottom: 320px,
+        font-size: 250px
+    );
+    padding-bottom: 0.06em;
+    font-weight: 700;
+    color: #fff;
+
+    @include set_props_by_medias($props, $medias-for-main-block);
+    
+    .main-block__over-title + & {
+        $props: (
+            margin-top: -30px
+        );
+        
+        @include set_props_by_medias($props, $medias-for-main-block);
+    }
+
+    @supports (((-webkit-background-clip: text) or (background-clip: text)) and ((-webkit-text-fill-color: transparent) or (text-fill-color: transparent)))
+    {
+        background-position: center 0;
+        background-repeat: no-repeat;
+        background-color: #fff;
+        background-image: linear-gradient(17.5deg, #000000 -4%, rgba(255, 255, 255, 0) 36%);
+        background-size: 4.036em 1.22em;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+}
+
+.geo {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    @media (max-width: $geo-responsive-max-width-breakpoint) {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+$medias-for-main-block: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value
+    )
+);
+
+$medias-for-geo: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value
+    )
+);
+
+.geo__box-wrapper {
+    $props: (
+        flex-basis: 444px,
+        min-height: 108px
+    );
+    flex-shrink: 0;    
+    
+    @include set_props_by_medias($props, $medias-for-geo);
+
+    $flex-basis: map-get($props, flex-basis);
+    $min-height: map-get($props, min-height);
+
+    @media (max-width: $geo-responsive-max-width-breakpoint) {
+        margin-bottom: get_responsive(10px, $medias-for-main-block-media-value) * $geo-responsive-coeff-breakpoint;
+        min-height: get_responsive($min-height, $medias-for-main-block-media-value) * $geo-responsive-coeff-breakpoint;
+        flex-basis: 50%;
+        
+        @media (min-width: $geo-responsive-max-width-breakpoint-2) {            
+            &:last-of-type:nth-of-type(odd) {
+                flex-basis: 100%;
+            }
+        }
+    }
+
+    @media (max-width: $geo-responsive-max-width-breakpoint-2) {
+        margin-bottom: get_responsive(10px, $medias-for-main-block-media-value) * $geo-responsive-coeff-breakpoint-2;
+        min-height: get_responsive($min-height, $medias-for-main-block-media-value) * $geo-responsive-coeff-breakpoint-2;
+        flex-basis: 100%;        
+    }
+}
+
+$medias-for-geo-box: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value
+    ),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value,
+        media-break-value: $geo-responsive-max-width-breakpoint,
+        coeff: 1.7
+    ),
+    (
+        media-condition: max-width,
+        media-value: $medias-for-main-block-media-value,
+        media-break-value: $geo-responsive-max-width-breakpoint-2,
+        coeff: 3
+    )
+);
+
+.geo__box {    
+    $props: (
+        margin: 0 13.5px,    
+        padding: 33px 33px 27px
+    );
+    height: 100%;
+    position: relative;        
+    display: flex;
+    align-items: flex-start;
+    text-decoration: none;      
+        
+    @include set_props_by_medias($props, $medias-for-geo-box);
+}
+
+.geo__cover {
+    $props: (
+        border-radius: 5px
+    );
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.1);    
+    filter: blur(6px);
+    transition: background-color .5s ease;
+    
+    @include set_props_by_medias($props, $medias-for-geo-box);
+
+    .geo__box:hover > & {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+
+.geo__map-marker {    
+    $props: (
+        margin-right: 30px,
+        margin-top: 3px,
+        width: 32px,
+        height: 32px
+    );
+    position: relative;
+    z-index: 2;
+    background-image: url(../img/ico-clarity-map-marker.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    @include set_props_by_medias($props, $medias-for-geo-box);
+}
+
+.geo__text {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 1;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.geo__name {
+    $props: (
+        font-size: 20px
+    );
+    margin-bottom: 0.2em;
+    font-weight: 700;
+    line-height: 1.2em;
+    color: #fff;
+
+    @include set_props_by_medias($props, $medias-for-geo-box);  
+}
+
+.geo__desc {
+    $props: (
+        font-size: 16px
+    );
+    font-weight: 400;
+    line-height: 1.25em;
+    color: rgba(255, 255, 255, 0.3);
+
+    @include set_props_by_medias($props, $medias-for-geo-box);
+}

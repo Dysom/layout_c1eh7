@@ -1,0 +1,191 @@
+@use "global-vars" as *;
+@use "funcs" as *;
+
+$card-original-full-width: 376px;
+
+$medias-for-activities: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 700px,
+        coeff: 0.5
+    )
+);
+
+.activities {    
+    $props: (
+        padding: 72px 0
+    );
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    text-decoration: none;
+    position: relative;
+
+    @include set_props_by_medias($props, $medias-for-activities);
+}
+            
+.activities__window-wrapper {
+    margin: 0 auto;
+    position: relative;
+    // border: 1px solid green;
+}
+
+.activities__window {
+    overflow: hidden;
+}
+
+.activities__window._noscript {
+    padding-bottom: 20px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.activities__ribbon {
+    display: flex;
+    justify-content: left;
+    align-items: stretch;    
+}
+
+$medias-for-move-arrow: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 700px,
+        coeff: 1.2
+    )
+);
+
+.activities__move-arrow {
+    $props: (
+        padding-top: 40px,
+        min-width: 40px,
+        font-size: 12px
+    );
+    font-weight: 700;
+    line-height: 1.25em;
+    letter-spacing: 0.15em;
+    color: #2D2D2D;
+
+    @include set_props_by_medias($props, $medias-for-move-arrow);
+}
+
+.activities__move-arrow {
+    top: 50%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% auto;
+    text-decoration: none;
+}
+
+.activities__move-arrow_back {    
+    right: 100%+3.32%;
+    background-image: url(../img/arrow-left.svg);
+}
+
+.activities__move-arrow_forward {
+    left: 100%+3.32%;
+    background-image: url(../img/arrow-right.svg);
+}
+
+.activities__move-arrow._noscript {
+    display: none;
+}
+
+$medias-for-card: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 580px,        
+    )
+);
+
+.activities__card-wrapper {    
+    $props: (
+        padding: 0 12.5px
+    );
+    max-width: $card-original-full-width;
+    flex-shrink: 0; 
+    opacity: 1;   
+    transition-property: padding max-width opacity;
+    transition-duration: .4s;
+
+    @include set_props_by_medias($props, $medias-for-card);
+}
+
+.activities__card-wrapper._collapsed {
+    padding: 0;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.activities__card {}
+
+.act-card {
+    $props: (
+        height: 620px
+    );
+    position: relative;
+    display: block;    
+
+    @include set_props_by_medias($props, $medias-for-card);
+}
+
+.activities__img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+$medias-for-card-content: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: 700px,
+        coeff: 1.4
+    )
+);
+
+.act-card__content {
+    $props: (
+        padding: 40px 37px,
+    );
+    
+    left: 0;    
+    bottom: 0;
+    position: absolute;
+    text-align: left;
+
+    @include set_props_by_medias($props, $medias-for-card-content);
+    
+    // @include testf(1)
+}
+
+.act-card__title {
+    $props: (
+        margin-bottom: 9px,
+        font-size: 32px    
+    );
+
+    font-weight: 600;
+    line-height: 1.219em;
+    color: #fff;
+
+    @include set_props_by_medias($props, $medias-for-card-content);
+}
+
+.act-card__text {
+    $props: (
+        margin-bottom: 8px,
+        font-size: 17px
+    );
+
+    font-weight: 500;
+    line-height: 1.235em;
+    color: rgba(255, 255, 255, 0.6);
+
+    @include set_props_by_medias($props, $medias-for-card-content);
+}

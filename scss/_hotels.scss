@@ -1,0 +1,271 @@
+@use "global-vars" as *;
+@use "funcs" as *;
+
+$media-max-width-point0: 1400px;
+$media-max-width-point: 1320px;
+$media-max-width-point2: 1200px;
+$media-max-width-point3: 880px;
+$media-max-width-point4: 850px;
+$media-max-width-point5: 500px;
+
+$medias-for-hotels: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point0
+    )
+);
+
+.section_hotels {
+    background-image: linear-gradient(0deg, transparent 3.125vw, #F4F4F4 3.125vw, #F4F4F4 60%, transparent 60%);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.hotels {
+    $props: (
+        margin-bottom: 48px,
+        padding-bottom: 110px
+    );
+    font-family: 'Montserrat';
+
+    @include set_props_by_medias($props, $medias-for-hotels);
+}
+
+.hotels__cards-box {
+    $props: (
+        margin: 55px 0 128px
+    );
+    display: flex;
+
+    @media (max-width: $media-max-width-point3) {
+        flex-flow: column;
+        align-items: stretch;
+    }
+
+    @include set_props_by_medias($props, $medias-for-hotels);
+}
+
+.hotel-card {
+    margin: 0 18px;
+    flex-shrink: 1;
+    text-decoration: none;    
+
+    @media (max-width: $media-max-width-point3) {
+        margin: unset;
+
+        &:not(:last-of-type) {
+            margin-bottom: 80px;
+        }
+    }
+}
+
+.hotel-card:first-of-type {
+    margin-left: 0;
+}
+
+.hotel-card:last-of-type {
+    margin-right: 0;
+}
+
+.hotel-card__img {
+    $props: (
+        height: 323px
+    );
+
+    margin-bottom: 11px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    height: auto;
+    border-radius: 8px;
+
+    @include set_props_by_medias($props, $medias-for-hotels);
+    
+    @media (max-width: $media-max-width-point3) {
+        height: auto;
+    }
+
+    $medias-local: (        
+        (
+            media-condition: max-width,
+            media-value: $media-max-width-point5
+            // media-break-value: $media-max-width-point5
+        ), // there must be a comma for the expression to be treated as a list
+    );
+
+    @include set_props_by_medias($props, $medias-local);
+}
+
+.hotel-card__desc {
+    position: relative;
+    display: flex;
+    text-align: left;
+
+    @media (max-width: $media-max-width-point2) AND (min-width: $media-max-width-point3), (max-width: $media-max-width-point5) {
+        flex-flow: column-reverse;
+        text-align: center;
+    }
+}
+
+.hotel-card__name {
+    padding-right: 16px;
+    min-width: 156px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.235em;
+    color: #000000;
+
+    @media (max-width: $media-max-width-point2) AND (min-width: $media-max-width-point3), (max-width: $media-max-width-point5) {
+        padding-right: 0;
+    }
+}
+
+.hotel-card__rate {    
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $media-max-width-point2) AND (min-width: $media-max-width-point3), (max-width: $media-max-width-point5) {
+        justify-content: center;
+    }
+}
+
+.hotel-card__star {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/ico-star-yellow.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.hotel-card__star.hotel-card__star_yellow-grey {
+    background-image: url(../img/ico-star-yellow-grey.svg);
+}
+
+.hotel-card__star.hotel-card__star_grey {
+    background-image: url(../img/ico-star-grey.svg);
+}
+
+.hotel-card__price {
+    padding-top: 10px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2em;
+    text-transform: uppercase;
+    color: #959595;
+
+    @media (max-width: $media-max-width-point2) {
+        right: 0;
+    }
+}
+
+.hotels__search-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @media (max-width: $media-max-width-point) {
+        flex-wrap: wrap;
+        justify-content: left;
+    }
+
+    @media (max-width: $media-max-width-point4) {
+        flex-wrap: unset;
+        justify-content: unset;
+        flex-flow: column;
+        align-items: stretch;
+    }
+}
+
+.hotels__option {
+    flex-grow: 1;
+    flex-shrink: 1;
+    // margin-right: 111px;
+    max-width: 465px;
+    padding-top: 20px;
+    padding-right: 20px;
+
+    @media (max-width: $media-max-width-point) {
+        min-width: 50%;
+        flex-grow: unset;
+    }
+
+    @media (max-width: $media-max-width-point4) {
+        padding-right: unset;
+        min-width: unset;
+        max-width: unset;
+    }
+}
+
+.selection-option {
+    text-align: left;
+}
+
+.selection-option__name {
+    margin-bottom: 11px;
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.25em;
+    letter-spacing: 3px;
+    color: #9B9B9B;
+}
+
+.selection-option__select {
+    // margin-right: 111px;
+    padding: 27px 80px 26px 22px;
+    appearance: none;
+    background-color: transparent;
+    background-image: url(../img/ico-select-bg.svg);
+    background-repeat: no-repeat;
+    // background-position: right 35px top 52%;
+    background-position: right 11% top 52%;
+    display: block;
+    max-width: 320px;
+    min-width: 220px;
+    width: 100%;
+    border: 1px solid #DBDBDB;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.222em;
+    letter-spacing: 1px;
+    color: #4E4E4E;
+
+    @media (max-width: $media-max-width-point4) {
+        max-width: unset;
+    }
+}
+
+.hotels__button {
+    min-width: 260px;
+
+    @media (max-width: $media-max-width-point4) {
+        margin-top: 20px;
+        min-width: unset;
+    }
+
+
+}
+
+.button {
+    padding: 27px 25px 26px;
+    display: inline-block;
+    background: #3D3D3D;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.222em;
+    letter-spacing: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: opacity .4s;
+}
+
+.button:hover {
+    opacity: .7;
+}

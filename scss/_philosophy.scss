@@ -1,0 +1,175 @@
+@use "global-vars" as *;
+@use "funcs" as *;
+
+$media-max-width-point: 1600px;
+$media-max-width-point2: 1000px;
+$media-max-width-point3: 700px;
+$media-max-width-point4: 480px;
+$media-max-width-point5: 350px;
+
+$medias-for-philosophy: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point
+    )
+);
+
+.philosophy {
+    $props: (
+        padding: 80px 12.5px,
+        max-width: 1504px
+    );
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;    
+
+    @include set_props_by_medias($props, $medias-for-philosophy);
+
+    @media (max-width: $media-max-width-point2) {
+        flex-direction: column;
+    }
+}
+
+.philosophy__img {
+    width: 58%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+
+    @media (max-width: $media-max-width-point2) {
+        width: 100%;
+        margin-bottom: 8%;
+    }
+}
+
+$medias-for-philosophy-content: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point
+    )
+);
+
+$medias-for-philosophy-content-font: (
+    (),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point,
+        coeff: 1.2
+    ),    
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point,
+        media-break-value: $media-max-width-point2,
+        coeff: 1.5
+    ),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point,
+        media-break-value: $media-max-width-point3,
+        coeff: 2.3
+    ),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point,
+        media-break-value: $media-max-width-point4,
+        coeff: 3
+    ),
+    (
+        media-condition: max-width,
+        media-value: $media-max-width-point,
+        media-break-value: $media-max-width-point5,
+        coeff: 3.8
+    )
+);
+
+.philosophy__content {
+    $props: (
+        padding-left: 93px
+    );
+    width: 42%;
+    counter-reset: philosophy_article_cnt;
+
+    @include set_props_by_medias($props, $medias-for-philosophy-content);
+
+    @media (max-width: $media-max-width-point2) {
+        padding-left: 0;
+        width: auto;
+    }
+}
+
+.philosophy__article {
+    $props: (
+        padding-left: 74px
+    );
+
+    position: relative;
+    font-family: 'Montserrat';
+    text-align: left;
+
+    @include set_props_by_medias($props, $medias-for-philosophy-content);
+
+    @media (max-width: $media-max-width-point3) {
+        padding-left: 0;
+        text-align: center;
+    }
+}
+
+.philosophy__article::before {
+    $props: (
+        width: 74px,
+    );
+    
+    $font-props: (
+        font-size: 26px
+    );
+
+    top: 0.17em;
+    left: 0;
+    position: absolute;
+    font-weight: 500;
+    line-height: 1.23em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #9B9B9B;
+    content: counter(philosophy_article_cnt, decimal-leading-zero) '';
+    counter-increment: philosophy_article_cnt;
+    
+    @include set_props_by_medias($props, $medias-for-philosophy-content);
+    @include set_props_by_medias($font-props, $medias-for-philosophy-content-font);
+    
+    @media (max-width: $media-max-width-point3) {
+        display: none;
+    }    
+}
+
+.philosophy__header {
+    $props: (
+        margin-bottom: 20px,
+    );    
+    $font-props: (
+        font-size: 32px
+    );
+    font-weight: 700;
+    line-height: 1.219em;
+    color: #3D3D3D;
+
+    @include set_props_by_medias($props, $medias-for-philosophy-content);
+    @include set_props_by_medias($font-props, $medias-for-philosophy-content-font);
+}
+
+.philosophy__text {
+    $props: (
+        margin-bottom: 70px,
+    );
+    $font-props: (
+        font-size: 16px
+    );
+    font-weight: 500;
+    line-height: 1.88em;
+    color: #6D6D6D;
+
+    @include set_props_by_medias($props, $medias-for-philosophy-content);
+    @include set_props_by_medias($font-props, $medias-for-philosophy-content-font);
+}
